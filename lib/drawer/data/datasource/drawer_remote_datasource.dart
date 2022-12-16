@@ -18,6 +18,7 @@ import 'package:elagk_pharmacy/drawer/domain/usecases/get_medicines_usecase.dart
 import 'package:elagk_pharmacy/drawer/domain/usecases/get_pharmacy_user_profile_usecase.dart';
 import 'package:elagk_pharmacy/drawer/domain/usecases/send_complaint_usecase.dart';
 import 'package:elagk_pharmacy/drawer/domain/usecases/update_medicine_usecase.dart';
+import 'package:flutter/foundation.dart';
 
 // Contract class.
 abstract class BaseDrawerRemoteDataSource {
@@ -25,11 +26,9 @@ abstract class BaseDrawerRemoteDataSource {
   Future<ContactUsModel> getContactUs();
 
   // About us screen
-  Future<AboutUsFirstModel> getAboutUsFirst(
-      GetAboutUsFirstParameters parameters);
+  Future<AboutUsFirstModel> getAboutUsFirst(GetAboutUsFirstParameters parameters);
 
-  Future<AboutUsSecondModel> getAboutUsSecond(
-      GetAboutUsSecondParameters parameters);
+  Future<AboutUsSecondModel> getAboutUsSecond(GetAboutUsSecondParameters parameters);
 
   // Add medicines screen
   Future<MedicineModel> addMedicine(AddMedicineParameters parameters);
@@ -39,12 +38,12 @@ abstract class BaseDrawerRemoteDataSource {
 
   Future<List<MedicineModel>> getMedicines(GetMedicinesParameters parameters);
 
-  Future<MedicineModel> updateMedicine(UpdateMedicineParameters parameters);
+  Future<MedicineModel>
+  updateMedicine(UpdateMedicineParameters parameters);
 
   Future<void> deleteMedicine(DeleteMedicineParameters parameters);
 
-  Future<PharmacyUserModel> getPharmacyUserProfile(
-      GetPharmacyUserParameters parameters);
+  Future<PharmacyUserModel> getPharmacyUserProfile(GetPharmacyUserParameters parameters);
 
   Future<List<CategoryModel>> getCategories();
 
@@ -126,6 +125,7 @@ class DrawerRemoteDataSource extends BaseDrawerRemoteDataSource {
     if (response.statusCode == 200) {
       return MedicineModel.fromJson(response.data);
     } else {
+      debugPrint(response.data);
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),
       );

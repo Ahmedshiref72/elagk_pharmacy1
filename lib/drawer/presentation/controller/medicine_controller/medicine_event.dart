@@ -20,7 +20,7 @@ class AddMedicineEvent extends MedicineEvent {
   final int? quantity;
   final int? point;
   final String? dose;
-  final int categoryId;
+  final int? categoryId;
   final String? categoryName;
   final String? createdAt;
 
@@ -37,7 +37,7 @@ class AddMedicineEvent extends MedicineEvent {
     this.quantity,
     this.point,
     this.dose,
-    required this.categoryId,
+    this.categoryId,
     this.categoryName,
     this.createdAt,
   });

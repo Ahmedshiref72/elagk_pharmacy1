@@ -22,63 +22,71 @@ class UpdateMedicineUseCase
 
 class UpdateMedicineParameters extends Equatable {
   final String userId;
-  final int productId; // will send with end point to update.
+  final int pharmacyId;
+  final int productId;
   final String productName;
-  final String productDescription;
-  final double productPrice;
-  final double discountPercent;
-  final File productImage;
-  final int productQuantity;
-  final int point;
-  final int categoryId;
-  final String categoryName;
-  final String createdAt;
+  final String? productDescription;
+  final double? productPrice;
+  final double? discountPercent;
+  final File? productImage;
+  final int? point;
+  final int? categoryId;
+  final String? categoryName;
+  final int? quantity;
+  final String? dose;
+  final String? createdAt;
 
   const UpdateMedicineParameters({
     required this.userId,
+    required this.pharmacyId,
     required this.productId,
     required this.productName,
-    required this.productDescription,
-    required this.productPrice,
-    required this.discountPercent,
-    required this.productImage,
-    required this.productQuantity,
-    required this.point,
-    required this.categoryId,
-    required this.categoryName,
-    required this.createdAt,
+    this.productDescription,
+    this.productPrice,
+    this.discountPercent,
+    this.productImage,
+    this.point,
+    this.categoryId,
+    this.categoryName,
+    this.quantity,
+    this.dose,
+    this.createdAt,
   });
 
   Map<String, dynamic> toJson() {
     return {
       "UserId": userId,
+      "PharmacyId": pharmacyId,
       "ProductId": productId,
-      "ProductName ": productName,
+      "ProductName": productName,
       "Description": productDescription,
       "Price": productPrice,
       "DiscountPercent": discountPercent,
       "Image": productImage,
-      "Quantity": productQuantity,
       "Point": point,
       "CategoryId": categoryId,
       "CategoryName": categoryName,
+      "Quantity": quantity,
+      "Dose": dose,
       "CreatedAt ": createdAt,
     };
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         userId,
+        pharmacyId,
         productId,
         productName,
         productDescription,
         productPrice,
         discountPercent,
         productImage,
-        productQuantity,
         point,
         categoryId,
         categoryName,
+        quantity,
+        dose,
         createdAt,
       ];
 }

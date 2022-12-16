@@ -28,18 +28,20 @@ class DrawerRepository extends BaseDrawerRepository {
   @override
   Future<Either<Failure, ContactUs>> getContactUs() async {
     try {
-    final result = await baseDrawerRemoteDataSource.getContactUs();
+      final result = await baseDrawerRemoteDataSource.getContactUs();
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
     }
   }
+
   // About us screen
   @override
-  Future<Either<Failure, AboutUsFirst>> getAboutUsFirst(GetAboutUsFirstParameters parameters) async {
-
+  Future<Either<Failure, AboutUsFirst>> getAboutUsFirst(
+      GetAboutUsFirstParameters parameters) async {
     try {
-      final result = await baseDrawerRemoteDataSource.getAboutUsFirst(parameters);
+      final result =
+          await baseDrawerRemoteDataSource.getAboutUsFirst(parameters);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
@@ -47,9 +49,11 @@ class DrawerRepository extends BaseDrawerRepository {
   }
 
   @override
-  Future<Either<Failure, AboutUsSecond>> getAboutUsSecond(GetAboutUsSecondParameters parameters) async {
+  Future<Either<Failure, AboutUsSecond>> getAboutUsSecond(
+      GetAboutUsSecondParameters parameters) async {
     try {
-      final result = await baseDrawerRemoteDataSource.getAboutUsSecond(parameters);
+      final result =
+          await baseDrawerRemoteDataSource.getAboutUsSecond(parameters);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
@@ -95,7 +99,8 @@ class DrawerRepository extends BaseDrawerRepository {
   Future<Either<Failure, Medicine>> updateMedicine(
       UpdateMedicineParameters parameters) async {
     try {
-      final result = await baseDrawerRemoteDataSource.updateMedicine(parameters);
+      final result =
+          await baseDrawerRemoteDataSource.updateMedicine(parameters);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
@@ -106,7 +111,8 @@ class DrawerRepository extends BaseDrawerRepository {
   Future<Either<Failure, void>> deleteMedicine(
       DeleteMedicineParameters parameters) async {
     try {
-      final result = await baseDrawerRemoteDataSource.deleteMedicine(parameters);
+      final result =
+          await baseDrawerRemoteDataSource.deleteMedicine(parameters);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));
@@ -118,7 +124,7 @@ class DrawerRepository extends BaseDrawerRepository {
       GetPharmacyUserParameters parameters) async {
     try {
       final result =
-      await baseDrawerRemoteDataSource.getPharmacyUserProfile(parameters);
+          await baseDrawerRemoteDataSource.getPharmacyUserProfile(parameters);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.statusMessage));

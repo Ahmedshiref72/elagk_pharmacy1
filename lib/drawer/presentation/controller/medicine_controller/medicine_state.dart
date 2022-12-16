@@ -4,6 +4,7 @@ class MedicineState extends Equatable {
   // Medicine
   final Medicine? medicine;
   final RequestState medicineRequestState;
+  final ButtonState medicineButtonState;
   final String medicineMessage;
   final File? medicineImage;
 
@@ -19,6 +20,7 @@ class MedicineState extends Equatable {
   const MedicineState({
     this.medicine,
     this.medicineRequestState = RequestState.loading,
+    this.medicineButtonState = ButtonState.static,
     this.medicineMessage = '',
     this.medicineImage,
     // Update medicine controllers.
@@ -34,6 +36,7 @@ class MedicineState extends Equatable {
   MedicineState copyWith({
     Medicine? medicine,
     RequestState? medicineRequestState,
+    ButtonState? medicineButtonState,
     String? medicineMessage,
     File? medicineImage,
     // Update medicine controllers.
@@ -48,19 +51,15 @@ class MedicineState extends Equatable {
     return MedicineState(
       medicine: medicine ?? this.medicine,
       medicineRequestState: medicineRequestState ?? this.medicineRequestState,
+      medicineButtonState: medicineButtonState ?? this.medicineButtonState,
       medicineMessage: medicineMessage ?? this.medicineMessage,
       medicineImage: medicineImage ?? this.medicineImage,
       // Update medicine controllers.
-      productNameController:
-          productNameController ?? this.productNameController,
-      productDetailsController:
-          productDetailsController ?? this.productDetailsController,
-      productPriceController:
-          productPriceController ?? this.productPriceController,
-      discountPercentController:
-          discountPercentController ?? this.discountPercentController,
-      categoryNameController:
-          categoryNameController ?? this.categoryNameController,
+      productNameController: productNameController ?? this.productNameController,
+      productDetailsController: productDetailsController ?? this.productDetailsController,
+      productPriceController: productPriceController ?? this.productPriceController,
+      discountPercentController: discountPercentController ?? this.discountPercentController,
+      categoryNameController: categoryNameController ?? this.categoryNameController,
       quantityController: quantityController ?? this.quantityController,
       doseController: doseController ?? this.doseController,
     );
@@ -70,6 +69,7 @@ class MedicineState extends Equatable {
   List<Object?> get props => [
         medicine,
         medicineRequestState,
+        medicineButtonState,
         medicineMessage,
         medicineImage,
         // Update medicine controllers.

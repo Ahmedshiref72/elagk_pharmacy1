@@ -164,15 +164,15 @@ class AddNewMedicineContent extends StatelessWidget {
                                             return MenuButton<String>(
                                               items: state.categoriesName,
                                               decoration: const BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.all(
+                                                borderRadius: BorderRadius.all(
                                                   Radius.circular(AppSize.s10),
                                                 ),
                                               ),
                                               topDivider: true,
                                               itemBuilder: (String value) =>
                                                   Container(
-                                                alignment: Alignment.centerRight,
+                                                alignment:
+                                                    Alignment.centerRight,
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         horizontal:
@@ -182,7 +182,10 @@ class AddNewMedicineContent extends StatelessWidget {
                                               toggledChild:
                                                   const ProductCategoryButton(),
                                               onItemSelected: (String value) {
-                                                context.read<CategoriesBloc>().add(SelectCategoryEvent(value));
+                                                context
+                                                    .read<CategoriesBloc>()
+                                                    .add(SelectCategoryEvent(
+                                                        value));
                                               },
                                               child:
                                                   const ProductCategoryButton(),
@@ -243,28 +246,39 @@ class AddNewMedicineContent extends StatelessWidget {
               ),
               BlocBuilder<MedicineBloc, MedicineState>(
                 builder: (context, state) {
-                  return MainButton(
-                    title: AppStrings.addingProduct,
-                    onPressed: () {
-                      // Todo: remove comments.
-                      /*if (_formKey.currentState!.validate()) {
-                        context.read<MedicineBloc>().add(
-                              AddMedicineEvent(
-                                context: context,
-                                productName: _productNameController.text,
-                                productDescription: _productDetailsController.text,
-                                productPrice: double.parse(_productPriceController.text),
-                                discountPercent: double.parse(_discountPercentController.text),
-                                categoryName: selectedCategory,
-                                categoryId: 1, // TODO: handle it
-                                quantity: int.parse(_quantityController.text),
-                                dose: _doseController.text,
-                                createdAt: DateTime.now().toString(),
-                              ),
-                            );
-                      }*/
-                    },
-                  );
+                  switch (state.medicineButtonState) {
+                    case ButtonState.loading:
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ),
+                      );
+                    case ButtonState.static:
+                      return MainButton(
+                        title: AppStrings.addingProduct,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<MedicineBloc>().add(
+                                  AddMedicineEvent(
+                                    context: context,
+                                    productName: _productNameController.text,
+                                    productDescription:
+                                        _productDetailsController.text,
+                                    productPrice: double.parse(
+                                        _productPriceController.text),
+                                    discountPercent: double.parse(
+                                        _discountPercentController.text),
+                                    categoryName: selectedCategory,
+                                    quantity:
+                                        int.parse(_quantityController.text),
+                                    dose: _doseController.text,
+                                    createdAt: DateTime.now().toString(),
+                                  ),
+                                );
+                          }
+                        },
+                      );
+                  }
                 },
               ),
             ],

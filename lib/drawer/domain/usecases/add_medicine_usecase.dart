@@ -28,8 +28,10 @@ class AddMedicineParameters extends Equatable {
   final double? discountPercent;
   final File? productImage;
   final int? point;
-  final int categoryId;
+  final int? categoryId;
   final String? categoryName;
+  final int? quantity;
+  final String? dose;
   final String? createdAt;
 
   const AddMedicineParameters({
@@ -42,8 +44,10 @@ class AddMedicineParameters extends Equatable {
     this.discountPercent,
     this.productImage,
     this.point,
-    required this.categoryId,
+    this.categoryId,
     this.categoryName,
+    this.quantity,
+    this.dose,
     this.createdAt,
   });
 
@@ -52,7 +56,7 @@ class AddMedicineParameters extends Equatable {
       "UserId": userId,
       "PharmacyId": pharmacyId,
       "ProductId": productId,
-      "ProductName ": productName,
+      "ProductName": productName,
       "Description": productDescription,
       "Price": productPrice,
       "DiscountPercent": discountPercent,
@@ -60,6 +64,8 @@ class AddMedicineParameters extends Equatable {
       "Point": point,
       "CategoryId": categoryId,
       "CategoryName": categoryName,
+      "Quantity": quantity,
+      "Dose": dose,
       "CreatedAt ": createdAt,
     };
   }
@@ -77,6 +83,8 @@ class AddMedicineParameters extends Equatable {
         point,
         categoryId,
         categoryName,
+        quantity,
+        dose,
         createdAt,
       ];
 }

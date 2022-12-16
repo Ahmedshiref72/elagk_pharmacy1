@@ -10,7 +10,6 @@ import 'package:elagk_pharmacy/drawer/domain/entities/medicine_entity.dart';
 import 'package:elagk_pharmacy/drawer/domain/usecases/add_medicine_usecase.dart';
 import 'package:elagk_pharmacy/drawer/domain/usecases/delete_medicine_usecase.dart';
 import 'package:elagk_pharmacy/drawer/domain/usecases/get_medicine_usecase.dart';
-import 'package:elagk_pharmacy/drawer/domain/usecases/get_medicines_usecase.dart';
 import 'package:elagk_pharmacy/drawer/domain/usecases/update_medicine_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +52,9 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
     }
   }
 
-
   FutureOr<void> _addMedicine(
       AddMedicineEvent event, Emitter<MedicineState> emit) async {
+    emit(state.copyWith(medicineButtonState: ButtonState.loading));
     final result = await addMedicineUseCase(
       AddMedicineParameters(
         userId: CacheHelper.getData(key: AppConstants.userId),
@@ -65,8 +64,9 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
         productPrice: event.productPrice!,
         discountPercent: event.discountPercent!,
         productImage: state.medicineImage,
-        categoryId: event.categoryId,
         categoryName: event.categoryName!,
+        quantity: event.quantity,
+        dose: event.dose,
         createdAt: event.createdAt!,
       ),
     );
@@ -76,6 +76,7 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
           state.copyWith(
             medicineRequestState: RequestState.error,
             medicineMessage: l.message,
+            medicineButtonState: ButtonState.static,
           ),
         );
       },
@@ -84,6 +85,7 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
           state.copyWith(
             medicineRequestState: RequestState.loaded,
             medicine: r,
+            medicineButtonState: ButtonState.static,
           ),
         );
         navigateFinalTo(
@@ -149,16 +151,18 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
 
   FutureOr<void> _updateMedicine(
       UpdateMedicineEvent event, Emitter<MedicineState> emit) async {
+    emit(state.copyWith(medicineButtonState: ButtonState.loading));
     final result = await updateMedicineUseCase(
       UpdateMedicineParameters(
         userId: CacheHelper.getData(key: AppConstants.userId),
+        pharmacyId: CacheHelper.getData(key: AppConstants.pharmacyId),
         productId: event.productId,
         productName: event.productName,
         productDescription: event.productDescription!,
         productPrice: event.productPrice!,
         discountPercent: event.discountPercent!,
         productImage: event.productImage!,
-        productQuantity: event.quantity!,
+        quantity: event.quantity!,
         point: event.point!,
         categoryId: event.categoryId!,
         categoryName: event.categoryName!,
@@ -170,6 +174,7 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
         emit(
           state.copyWith(
             medicineRequestState: RequestState.error,
+            medicineButtonState: ButtonState.static,
             medicineMessage: l.message,
           ),
         );
@@ -178,6 +183,7 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
         emit(
           state.copyWith(
             medicineRequestState: RequestState.loaded,
+            medicineButtonState: ButtonState.static,
             medicine: r,
           ),
         );
