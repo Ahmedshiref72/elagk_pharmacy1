@@ -22,6 +22,5 @@ void main() async {
     ),
   );
   await CacheHelper.init();
-  // TODO: remove Device Preview before build apk. // from Material app too.
   runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
 }

@@ -84,6 +84,8 @@ class AppStrings {
   static const String theQuantity = "الكمية";
   static const String dose = "الجرعة";
   static const String productPicture = "إضافة صورة";
+  static const String confirmDeleteProduct = "هل أنت متأكد من حذف المنتج؟";
+  static const String delete = "حذف";
 
   // static const String availableQuantity = "الكمية المتاحة";
   static const String enterValidProductName = "من فضلك ادخل اسم صحيح";

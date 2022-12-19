@@ -82,7 +82,7 @@ class MenuScreen extends StatelessWidget {
                         );
                       case RequestState.loaded:
                         return HeaderDrawerSection(
-                          title: state.pharmacyUser!.pharmacyName ?? "null",
+                          title: state.pharmacyUser!.pharmacyName ?? "User Name",
                           imageSrc: state.pharmacyUser!.imageUrl!,
                         );
                       case RequestState.error:

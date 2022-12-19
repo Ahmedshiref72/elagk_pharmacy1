@@ -36,7 +36,7 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
     on<DeleteMedicineEvent>(_deleteMedicine);
     on<GetMedicineEvent>(_getMedicine);
     on<UpdateMedicineEvent>(_updateMedicine);
-    on<InitTextControllersEvent>(_initTextControllers);
+    // on<InitTextControllersEvent>(_initTextControllers);
   }
 
   final ImagePicker picker = ImagePicker();
@@ -64,12 +64,22 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
         productPrice: event.productPrice!,
         discountPercent: event.discountPercent!,
         productImage: state.medicineImage,
-        categoryName: event.categoryName!,
+        categoryName: event.categoryName ??
+            CacheHelper.getData(key: AppConstants.defaultCategory),
         quantity: event.quantity,
         dose: event.dose,
         createdAt: event.createdAt!,
       ),
-    );
+    ).then((value) {
+      navigateFinalTo(
+        context: event.context,
+        screenRoute: Routes.homeDrawerScreen,
+      );
+      emit(state.copyWith(
+        medicineButtonState: ButtonState.static,
+        medicineImage: null,
+      ));
+    });
     result.fold(
       (l) {
         emit(
@@ -84,8 +94,8 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
         emit(
           state.copyWith(
             medicineRequestState: RequestState.loaded,
-            medicine: r,
             medicineButtonState: ButtonState.static,
+            medicine: r,
           ),
         );
         navigateFinalTo(
@@ -152,6 +162,26 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
   FutureOr<void> _updateMedicine(
       UpdateMedicineEvent event, Emitter<MedicineState> emit) async {
     emit(state.copyWith(medicineButtonState: ButtonState.loading));
+    // TODO: remove this prints.
+    debugPrint("******productId*********");
+    debugPrint(event.productId.toString());
+    debugPrint("*****productName*********");
+    debugPrint(event.productName);
+    debugPrint("*******productDescription********");
+    debugPrint(event.productDescription);
+    debugPrint("*******productPrice********");
+    debugPrint(event.productPrice.toString());
+    debugPrint("*******discountPercent******");
+    debugPrint(event.discountPercent.toString());
+    debugPrint("*****imageUrl*********");
+    debugPrint(event.imageUrl);
+    debugPrint("*******quantity*********");
+    debugPrint(event.quantity.toString());
+    debugPrint("******categoryId*********");
+    debugPrint(event.categoryId.toString());
+    debugPrint("*******categoryName*********");
+    debugPrint(event.categoryName);
+    debugPrint("***********************");
     final result = await updateMedicineUseCase(
       UpdateMedicineParameters(
         userId: CacheHelper.getData(key: AppConstants.userId),
@@ -161,14 +191,27 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
         productDescription: event.productDescription!,
         productPrice: event.productPrice!,
         discountPercent: event.discountPercent!,
-        productImage: event.productImage!,
+        productImage: state.medicineImage ?? null,
+        imageUrl: state.medicineImage == null ? event.imageUrl : null,
+        // it can be null.
+        // it can be Null
         quantity: event.quantity!,
-        point: event.point!,
-        categoryId: event.categoryId!,
-        categoryName: event.categoryName!,
-        createdAt: event.createdAt!,
+        // point: event.point!,
+        dose: event.dose,
+        categoryId: event.categoryId,
+        categoryName: event.categoryName,
+        createdAt: event.createdAt,
       ),
-    );
+    ).then((value) {
+      navigateFinalTo(
+        context: event.context,
+        screenRoute: Routes.homeDrawerScreen,
+      );
+      emit(state.copyWith(
+        medicineButtonState: ButtonState.static,
+        medicineImage: null,
+      ));
+    });
     result.fold(
       (l) {
         emit(
@@ -195,21 +238,27 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
     );
   }
 
+// Update medicine controllers.
+/*TextEditingController? productNameController;
+      TextEditingController? productDetailsController;
+  TextEditingController? productPriceController;
+      TextEditingController? discountPercentController;
+  TextEditingController? categoryNameController;
+      TextEditingController? quantityController;
+  TextEditingController? doseController;
+
   // to use initialValue & controllers in the same time.
   FutureOr<void> _initTextControllers(
       InitTextControllersEvent event, Emitter<MedicineState> emit) {
-    emit(
-      state.copyWith(
-        productNameController: TextEditingController(text: event.productName),
-        productDetailsController:
-            TextEditingController(text: event.productDetails),
-        productPriceController: TextEditingController(text: event.productPrice),
-        discountPercentController:
-            TextEditingController(text: event.discountPercent),
-        categoryNameController: TextEditingController(text: event.categoryName),
-        quantityController: TextEditingController(text: event.quantity),
-        doseController: TextEditingController(text: event.dose),
-      ),
-    );
-  }
+    // emit(state.copyWith(
+        productNameController= TextEditingController(text: event.productName);
+        productDetailsController= TextEditingController(text: event.productDetails);
+        productPriceController= TextEditingController(text: event.productPrice);
+        discountPercentController= TextEditingController(text: event.discountPercent);
+        categoryNameController= TextEditingController(text: event.categoryName);
+        quantityController= TextEditingController(text: event.quantity);
+        doseController= TextEditingController(text: event.dose);
+      // ),
+    // );
+  }*/
 }

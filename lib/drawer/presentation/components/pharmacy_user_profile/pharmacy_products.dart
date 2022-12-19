@@ -1,11 +1,15 @@
 import 'package:elagk_pharmacy/core/global/app_colors.dart';
 import 'package:elagk_pharmacy/core/services/services_locator.dart';
 import 'package:elagk_pharmacy/core/utils/app_constants.dart';
+import 'package:elagk_pharmacy/core/utils/app_routes.dart';
 import 'package:elagk_pharmacy/core/utils/app_values.dart';
+import 'package:elagk_pharmacy/core/utils/argument_models.dart';
 import 'package:elagk_pharmacy/core/utils/enums.dart';
+import 'package:elagk_pharmacy/core/utils/navigation.dart';
 import 'package:elagk_pharmacy/drawer/presentation/components/error_screen.dart';
 import 'package:elagk_pharmacy/drawer/presentation/components/pharmacy_user_profile/product_item_pharmacy_widget.dart';
 import 'package:elagk_pharmacy/drawer/presentation/controller/categories_controller/categories_bloc.dart';
+import 'package:elagk_pharmacy/drawer/presentation/controller/medicine_controller/medicine_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,29 +57,25 @@ class _PharmacyProductsState extends State<PharmacyProducts> {
                 return ProductItemPharmacy(
                   productName: state.medicines![index].productName,
                   productPrice: state.medicines![index].price.toString(),
-                  imageSrc:
-                      state.medicines![index].imageUrl ?? AppConstants.empty,
+                  imageSrc: state.medicines![index].imageUrl ?? AppConstants.empty,
                   onTap: () {
-                    // TODO: remove comments.
-                    /* navigateTo(
+                    // BlocProvider.of<MedicineBloc>(context).add(GetMedicineEvent(state.medicines![index].productId));
+                     navigateTo(
                       context: context,
                       screenRoute: Routes.updateMedicineScreen,
                       arguments: UpdateMedicineArguments(
                         productId: state.medicines![index].productId,
                         productName: state.medicines![index].productName,
                         description: state.medicines![index].description!,
+                        imageUrl: state.medicines![index].imageUrl!,
                         price: state.medicines![index].price,
-                        discountPercent:
-                            state.medicines![index].discountPercent,
+                        discountPercent: state.medicines![index].discountPercent,
                         categoryId: state.medicines![index].categoryId,
-                        categoryName: state.medicines![index].categoryName ??
-                            AppConstants.empty,
-                        // TODO: handle it.
+                        categoryName: state.medicines![index].categoryName, // TODO: change it in medicine model to String instead of String?.
                         quantity: state.medicines![index].quantity!,
-                        dose: state.medicines![index].dose ??
-                            AppConstants.empty, // TODO: handle it.
+                        dose: state.medicines![index].dose ?? AppConstants.empty, // TODO: handle it.
                       ),
-                    );*/
+                    );
                   },
                 );
               },

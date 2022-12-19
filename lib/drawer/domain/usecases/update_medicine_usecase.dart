@@ -29,6 +29,7 @@ class UpdateMedicineParameters extends Equatable {
   final double? productPrice;
   final double? discountPercent;
   final File? productImage;
+  final String? imageUrl;
   final int? point;
   final int? categoryId;
   final String? categoryName;
@@ -45,6 +46,7 @@ class UpdateMedicineParameters extends Equatable {
     this.productPrice,
     this.discountPercent,
     this.productImage,
+    this.imageUrl,
     this.point,
     this.categoryId,
     this.categoryName,
@@ -53,7 +55,7 @@ class UpdateMedicineParameters extends Equatable {
     this.createdAt,
   });
 
-  Map<String, dynamic> toJson() {
+  /* Map<String, dynamic> toJson() {
     return {
       "UserId": userId,
       "PharmacyId": pharmacyId,
@@ -70,7 +72,7 @@ class UpdateMedicineParameters extends Equatable {
       "Dose": dose,
       "CreatedAt ": createdAt,
     };
-  }
+  }*/
 
   @override
   List<Object?> get props => [
@@ -82,6 +84,7 @@ class UpdateMedicineParameters extends Equatable {
         productPrice,
         discountPercent,
         productImage,
+        imageUrl,
         point,
         categoryId,
         categoryName,

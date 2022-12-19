@@ -46,7 +46,7 @@ dependencies:
   flutter_zoom_drawer: ^3.0.3
   url_launcher: ^6.1.7
   flutter_image_slideshow: ^0.1.4
-  rename: ^2.0.1
+#  rename: ^2.0.1
   dropdown_search: ^5.0.5
   ## New packages:
   equatable: ^2.0.5
@@ -58,6 +58,7 @@ dependencies:
   flutter_svg: ^1.1.6
   lottie: ^2.0.0
   menu_button: ^1.4.2+1
+  change_app_package_name: ^1.1.0
   flutter_launcher_icons: ^0.11.0
 
 #flutter_icons:

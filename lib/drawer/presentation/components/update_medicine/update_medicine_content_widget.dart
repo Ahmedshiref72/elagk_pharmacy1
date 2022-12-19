@@ -20,13 +20,61 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:menu_button/menu_button.dart';
 
-class UpdateMedicineContent extends StatelessWidget {
+class UpdateMedicineContent extends StatefulWidget {
   const UpdateMedicineContent({
     Key? key,
+    required this.productId,
+    required this.productName,
+    required this.description,
+    required this.imageUrl,
+    required this.price,
+    required this.discountPercent,
+    required this.categoryId,
+    required this.categoryName,
+    required this.quantity,
+    required this.dose,
   }) : super(key: key);
+
+  final int productId;
+  final String productName;
+  final String description;
+  final String imageUrl;
+  final double price;
+  final double discountPercent;
+  final int categoryId;
+  final String categoryName;
+  final int quantity;
+  final String dose;
+
+  @override
+  State<UpdateMedicineContent> createState() => _UpdateMedicineContentState();
+}
+
+class _UpdateMedicineContentState extends State<UpdateMedicineContent> {
   static final _formKey = GlobalKey<FormState>();
 
   static String? selectedCategory;
+
+  static TextEditingController? _productNameController;
+  static TextEditingController? _productDetailsController;
+  static TextEditingController? _productPriceController;
+  static TextEditingController? _discountPercentController;
+  static TextEditingController? _quantityController;
+  static TextEditingController? _doseController;
+
+  @override
+  void initState() {
+    _productNameController = TextEditingController(text: widget.productName);
+    _productDetailsController = TextEditingController(text: widget.description);
+    _productPriceController =
+        TextEditingController(text: widget.price.toString());
+    _discountPercentController =
+        TextEditingController(text: widget.discountPercent.toString());
+    _quantityController =
+        TextEditingController(text: widget.quantity.toString());
+    _doseController = TextEditingController(text: widget.dose);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +93,7 @@ class UpdateMedicineContent extends StatelessWidget {
                       child: Column(
                         children: [
                           MainTextFormField(
-                            controller: state.productNameController!,
+                            controller: _productNameController!,
                             label: AppStrings.productName,
                             inputType: TextInputType.text,
                             obscure: false,
@@ -58,7 +106,7 @@ class UpdateMedicineContent extends StatelessWidget {
                           ),
                           const MedicineSpace(),
                           MainTextFormField(
-                            controller: state.productDetailsController!,
+                            controller: _productDetailsController!,
                             inputType: TextInputType.multiline,
                             label: AppStrings.productDetails,
                             obscure: false,
@@ -73,9 +121,9 @@ class UpdateMedicineContent extends StatelessWidget {
                           ),
                           const MedicineSpace(),
                           MainTextFormField(
-                            controller: state.productPriceController!,
+                            controller: _productPriceController!,
                             label: AppStrings.productPrice,
-                            inputType: TextInputType.number,
+                            inputType: TextInputType.phone,
                             obscure: false,
                             validator: (value) {
                               if (value!.isEmpty || value == '0') {
@@ -86,9 +134,9 @@ class UpdateMedicineContent extends StatelessWidget {
                           ),
                           const MedicineSpace(),
                           MainTextFormField(
-                            controller: state.discountPercentController!,
+                            controller: _discountPercentController!,
                             label: AppStrings.productDiscountPercent,
-                            inputType: TextInputType.number,
+                            inputType: TextInputType.phone,
                             obscure: false,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -104,7 +152,7 @@ class UpdateMedicineContent extends StatelessWidget {
                             children: [
                               Flexible(
                                 child: MainTextFormField(
-                                  controller: state.quantityController!,
+                                  controller: _quantityController!,
                                   label: AppStrings.theQuantity,
                                   inputType: TextInputType.phone,
                                   obscure: false,
@@ -133,82 +181,10 @@ class UpdateMedicineContent extends StatelessWidget {
                                       child: BlocBuilder<CategoriesBloc,
                                           CategoriesState>(
                                         builder: (context, state) {
-                                          selectedCategory =
-                                              state.selectedCategory;
-                                          return MenuButton<String>(
-                                            items: state.categoriesName,
-                                            itemBuilder: (String value) =>
-                                                Container(
-                                              height: AppSize.s50,
-                                              width: double.infinity,
-                                              alignment: Alignment.centerRight,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal:
-                                                          AppPadding.p16),
-                                              child: Text(value),
-                                            ),
-                                            toggledChild:
-                                                const ProductCategoryButton(),
-                                            onItemSelected: (String value) {
-                                              sl<CategoriesBloc>().add(
-                                                  SelectCategoryEvent(value));
-                                            },
-                                            child:
-                                                const ProductCategoryButton(),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          // Category & quantity
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: MainTextFormField(
-                                  controller: state.quantityController!,
-                                  label: AppStrings.theQuantity,
-                                  inputType: TextInputType.phone,
-                                  obscure: false,
-                                  validator: (value) {
-                                    if (value!.isEmpty || value == "0") {
-                                      return AppStrings.enterValidQuantity;
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              Flexible(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        AppStrings.productCategoryName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium,
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: BlocBuilder<CategoriesBloc,
-                                          CategoriesState>(
-                                        builder: (context, state) {
-                                          selectedCategory =
-                                              state.selectedCategory;
                                           switch (state.categoryRequestState) {
                                             case RequestState.loading:
                                               return const Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                        color:
-                                                            AppColors.primary),
+                                                child: CircularProgressIndicator(color: AppColors.primary),
                                               );
                                             case RequestState.loaded:
                                               return MenuButton<String>(
@@ -238,6 +214,9 @@ class UpdateMedicineContent extends StatelessWidget {
                                                       .read<CategoriesBloc>()
                                                       .add(SelectCategoryEvent(
                                                           value));
+                                                  setState(() {
+                                                    selectedCategory = value;
+                                                  });
                                                 },
                                                 child:
                                                     const ProductCategoryButton(),
@@ -255,7 +234,7 @@ class UpdateMedicineContent extends StatelessWidget {
                           ),
                           const MedicineSpace(),
                           MainTextFormField(
-                            controller: state.doseController!,
+                            controller: _doseController!,
                             label: AppStrings.dose,
                             inputType: TextInputType.text,
                             obscure: false,
@@ -273,9 +252,7 @@ class UpdateMedicineContent extends StatelessWidget {
                                     builder: (BuildContext context) {
                                       return ShowPickerDialog(
                                         onCameraTapped: () {
-                                          context
-                                              .read<MedicineBloc>()
-                                              .pickImage(ImageSource.camera);
+                                          context.read<MedicineBloc>().pickImage(ImageSource.camera);
                                           Navigator.of(context).pop();
                                         },
                                         onGalleryTapped: () {
@@ -318,21 +295,15 @@ class UpdateMedicineContent extends StatelessWidget {
                                     context.read<MedicineBloc>().add(
                                           UpdateMedicineEvent(
                                             context: context,
-                                            productId:
-                                                state.medicine!.productId,
-                                            productName: state
-                                                .productNameController!.text,
-                                            productDescription: state
-                                                .productDetailsController!.text,
-                                            productPrice: double.parse(state
-                                                .productPriceController!.text),
-                                            discountPercent: double.parse(state
-                                                .discountPercentController!
-                                                .text),
-                                            categoryName: selectedCategory,
-                                            quantity: int.parse(
-                                                state.quantityController!.text),
-                                            dose: state.doseController!.text,
+                                            productId: widget.productId,
+                                            productName: _productNameController!.text,
+                                            productDescription: _productDetailsController!.text,
+                                            productPrice: double.parse(_productPriceController!.text),
+                                            discountPercent: double.parse(_discountPercentController!.text),
+                                            categoryName: selectedCategory ?? widget.categoryName,
+                                            quantity: int.parse(_quantityController!.text),
+                                            dose: _doseController!.text,
+                                            imageUrl: widget.imageUrl,
                                           ),
                                         );
                                   }
@@ -348,7 +319,7 @@ class UpdateMedicineContent extends StatelessWidget {
                                         context.read<MedicineBloc>().add(
                                               DeleteMedicineEvent(
                                                 context: context,
-                                                id: state.medicine!.productId,
+                                                id: widget.productId,
                                               ),
                                             );
                                       });

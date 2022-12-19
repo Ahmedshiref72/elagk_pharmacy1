@@ -60,9 +60,9 @@ class AddMedicineParameters extends Equatable {
       "Description": productDescription,
       "Price": productPrice,
       "DiscountPercent": discountPercent,
-      "Image": productImage,
+      "Image": productImage, // Todo: it should be MultipartFile.fromFile.
       "Point": point,
-      "CategoryId": categoryId,
+      "CategoryId": 4, // Todo: Check this.
       "CategoryName": categoryName,
       "Quantity": quantity,
       "Dose": dose,

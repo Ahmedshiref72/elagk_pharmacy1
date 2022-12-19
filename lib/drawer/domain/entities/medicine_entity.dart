@@ -11,7 +11,7 @@ class Medicine extends Equatable {
   final String? imageUrl;
   final int point;
   final int categoryId;
-  final String? categoryName;
+  final String categoryName;
   final int? quantity;
   final String? dose;
   final String? createdAt;

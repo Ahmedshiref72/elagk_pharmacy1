@@ -9,13 +9,13 @@ class MedicineState extends Equatable {
   final File? medicineImage;
 
   // Update medicine controllers.
-  final TextEditingController? productNameController;
+  /*final TextEditingController? productNameController;
   final TextEditingController? productDetailsController;
   final TextEditingController? productPriceController;
   final TextEditingController? discountPercentController;
   final TextEditingController? categoryNameController;
   final TextEditingController? quantityController;
-  final TextEditingController? doseController;
+  final TextEditingController? doseController;*/
 
   const MedicineState({
     this.medicine,
@@ -24,13 +24,13 @@ class MedicineState extends Equatable {
     this.medicineMessage = '',
     this.medicineImage,
     // Update medicine controllers.
-    this.productNameController,
+   /* this.productNameController,
     this.productDetailsController,
     this.productPriceController,
     this.discountPercentController,
     this.categoryNameController,
     this.quantityController,
-    this.doseController,
+    this.doseController,*/
   });
 
   MedicineState copyWith({
@@ -40,13 +40,13 @@ class MedicineState extends Equatable {
     String? medicineMessage,
     File? medicineImage,
     // Update medicine controllers.
-    TextEditingController? productNameController,
+    /*TextEditingController? productNameController,
     TextEditingController? productDetailsController,
     TextEditingController? productPriceController,
     TextEditingController? discountPercentController,
     TextEditingController? categoryNameController,
     TextEditingController? quantityController,
-    TextEditingController? doseController,
+    TextEditingController? doseController,*/
   }) {
     return MedicineState(
       medicine: medicine ?? this.medicine,
@@ -55,13 +55,13 @@ class MedicineState extends Equatable {
       medicineMessage: medicineMessage ?? this.medicineMessage,
       medicineImage: medicineImage ?? this.medicineImage,
       // Update medicine controllers.
-      productNameController: productNameController ?? this.productNameController,
+      /*productNameController: productNameController ?? this.productNameController,
       productDetailsController: productDetailsController ?? this.productDetailsController,
       productPriceController: productPriceController ?? this.productPriceController,
       discountPercentController: discountPercentController ?? this.discountPercentController,
       categoryNameController: categoryNameController ?? this.categoryNameController,
       quantityController: quantityController ?? this.quantityController,
-      doseController: doseController ?? this.doseController,
+      doseController: doseController ?? this.doseController,*/
     );
   }
 
@@ -73,12 +73,12 @@ class MedicineState extends Equatable {
         medicineMessage,
         medicineImage,
         // Update medicine controllers.
-        productNameController,
+        /*productNameController,
         productDetailsController,
         productPriceController,
         discountPercentController,
         categoryNameController,
         quantityController,
-        doseController,
+        doseController,*/
       ];
 }

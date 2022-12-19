@@ -33,6 +33,7 @@ class LogOutSection extends StatelessWidget {
             screenRoute: Routes.loginPharmacyScreen,
           );
           CacheHelper.deleteData(key: AppConstants.pharmacyId);
+          CacheHelper.deleteData(key: AppConstants.defaultCategory);
         });
       },
     );

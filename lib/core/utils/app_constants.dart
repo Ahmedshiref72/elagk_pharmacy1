@@ -7,6 +7,7 @@ class AppConstants {
   static const String token = "token";
   static const String pharmacyId = "pharmacyId";
   static const String categoryId = "categoryId";
+  static const String defaultCategory = "defaultCategory";
 
   // About us Screen
   static const String whoAreWeParameter = "whoAreWe";

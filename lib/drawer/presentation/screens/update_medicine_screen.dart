@@ -1,5 +1,4 @@
 import 'package:elagk_pharmacy/core/global/app_colors.dart';
-import 'package:elagk_pharmacy/core/services/services_locator.dart';
 import 'package:elagk_pharmacy/core/utils/app_strings.dart';
 import 'package:elagk_pharmacy/core/utils/enums.dart';
 import 'package:elagk_pharmacy/drawer/presentation/components/back_appbar_widget.dart';
@@ -15,6 +14,7 @@ class UpdateMedicineScreen extends StatelessWidget {
     required this.productId,
     required this.productName,
     required this.description,
+    required this.imageUrl,
     required this.price,
     required this.discountPercent,
     required this.categoryId,
@@ -26,6 +26,7 @@ class UpdateMedicineScreen extends StatelessWidget {
   final int productId;
   final String productName;
   final String description;
+  final String imageUrl;
   final double price;
   final double discountPercent;
   final int categoryId;
@@ -47,25 +48,28 @@ class UpdateMedicineScreen extends StatelessWidget {
             actionsButton: () {},
           ),
           body: BlocBuilder<MedicineBloc, MedicineState>(
-            bloc: sl<MedicineBloc>()
-              ..add(InitTextControllersEvent(
-                productName: productName,
-                productDetails: description,
-                productPrice: price.toString(),
-                discountPercent: discountPercent.toString(),
-                categoryName: categoryName,
-                quantity: quantity.toString(),
-                dose: dose,
-              )),
-            builder: (context, state) {
+            // bloc: sl<MedicineBloc>()..add(GetMedicineEvent(productId)),
+            builder: (context, state) { // TODO: don't nedd this switch.
               switch (state.medicineRequestState) {
-                case RequestState.loading:
+                case RequestState.loaded:
                   return const Center(
                       child: CircularProgressIndicator(
                     color: AppColors.primary,
                   ));
-                case RequestState.loaded:
-                  return const UpdateMedicineContent();
+                case RequestState.loading:  // TODO: check this case.
+                // with constructor
+                  return UpdateMedicineContent(
+                    productId: productId,
+                    productName: productName,
+                    description: description,
+                    price: price,
+                    discountPercent: discountPercent,
+                    categoryId: categoryId,
+                    categoryName: categoryName,
+                    quantity: quantity,
+                    dose: dose,
+                    imageUrl: imageUrl,
+                  );
                 case RequestState.error:
                   return const ErrorScreen();
               }

@@ -86,6 +86,7 @@ class RouteGenerator {
               productId: args.productId,
               productName: args.productName,
               description: args.description,
+              imageUrl: args.imageUrl,
               price: args.price,
               categoryId: args.categoryId,
               categoryName: args.categoryName,

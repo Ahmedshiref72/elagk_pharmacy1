@@ -16,13 +16,9 @@ class PharmacyProfileBloc
     extends Bloc<PharmacyProfileEvent, PharmacyProfileState> {
   final GetPharmacyUserProfileUseCase getPharmacyUserProfileUseCase;
 
-  PharmacyProfileBloc(this.getPharmacyUserProfileUseCase)
-      : super(const PharmacyProfileState()) {
-    on<GetPharmacyUserProfileEvent>(_getPharmacyUserProfile);
-  }
+  PharmacyProfileBloc(this.getPharmacyUserProfileUseCase) : super(const PharmacyProfileState()) {on<GetPharmacyUserProfileEvent>(_getPharmacyUserProfile);}
 
-  FutureOr<void> _getPharmacyUserProfile(GetPharmacyUserProfileEvent event,
-      Emitter<PharmacyProfileState> emit) async {
+  FutureOr<void> _getPharmacyUserProfile(GetPharmacyUserProfileEvent event, Emitter<PharmacyProfileState> emit) async {
     final result = await getPharmacyUserProfileUseCase(
       GetPharmacyUserParameters(userId: CacheHelper.getData(key: AppConstants.userId)), // Done
     );

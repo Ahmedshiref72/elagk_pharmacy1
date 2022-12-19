@@ -20,7 +20,7 @@ class ProductItemPharmacy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onLongPress: onTap,
       child: Container(
         height: AppSize.s170,
         width: AppSize.s110,

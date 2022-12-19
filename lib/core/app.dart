@@ -25,18 +25,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (BuildContext context) => sl<LoginPharmacyBloc>()),
         BlocProvider(create: (BuildContext context) => sl<PasswordBloc>()),
-        BlocProvider(
-            create: (BuildContext context) => sl<AboutUsBloc>()
-              ..add(const GetContactUsEvent())
-              ..add(const GetAboutUsFirstEvent())
-              ..add(const GetAboutUsSecondEvent())),
+        BlocProvider(create: (BuildContext context) => sl<AboutUsBloc>()..add(const GetContactUsEvent())..add(const GetAboutUsFirstEvent())..add(const GetAboutUsSecondEvent())),
         BlocProvider(create: (BuildContext context) => sl<MedicineBloc>()),
-        BlocProvider(
-            create: (BuildContext context) => sl<PharmacyProfileBloc>()
-              ..add(const GetPharmacyUserProfileEvent())),
-        BlocProvider(
-            create: (BuildContext context) =>
-                sl<CategoriesBloc>()..add(const GetCategoriesEvent())),
+        BlocProvider(create: (BuildContext context) => sl<PharmacyProfileBloc>()..add(const GetPharmacyUserProfileEvent())),
+        BlocProvider(create: (BuildContext context) => sl<CategoriesBloc>()..add(const GetCategoriesEvent())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

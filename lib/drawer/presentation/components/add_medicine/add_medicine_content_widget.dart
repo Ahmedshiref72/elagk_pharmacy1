@@ -2,6 +2,8 @@ import 'package:elagk_pharmacy/auth/presentation/components/MainTextFormField.da
 import 'package:elagk_pharmacy/auth/presentation/components/main_button.dart';
 import 'package:elagk_pharmacy/auth/presentation/components/screen_background.dart';
 import 'package:elagk_pharmacy/core/global/app_colors.dart';
+import 'package:elagk_pharmacy/core/local/cache_helper.dart';
+import 'package:elagk_pharmacy/core/utils/app_constants.dart';
 import 'package:elagk_pharmacy/core/utils/app_strings.dart';
 import 'package:elagk_pharmacy/core/utils/app_values.dart';
 import 'package:elagk_pharmacy/core/utils/enums.dart';
@@ -94,7 +96,7 @@ class AddNewMedicineContent extends StatelessWidget {
                         MainTextFormField(
                           controller: _productPriceController,
                           label: AppStrings.productPrice,
-                          inputType: TextInputType.number,
+                          inputType: TextInputType.phone,
                           obscure: false,
                           validator: (value) {
                             if (value!.isEmpty || value == '0') {
@@ -107,7 +109,7 @@ class AddNewMedicineContent extends StatelessWidget {
                         MainTextFormField(
                           controller: _discountPercentController,
                           label: AppStrings.productDiscountPercent,
-                          inputType: TextInputType.number,
+                          inputType: TextInputType.phone,
                           obscure: false,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -149,52 +151,60 @@ class AddNewMedicineContent extends StatelessWidget {
                                     ),
                                   ),
                                   Flexible(
-                                    child: BlocBuilder<CategoriesBloc,
-                                        CategoriesState>(
-                                      builder: (context, state) {
-                                        selectedCategory =
-                                            state.selectedCategory;
-                                        switch (state.categoryRequestState) {
-                                          case RequestState.loading:
-                                            return const Center(
-                                              child: CircularProgressIndicator(
-                                                  color: AppColors.primary),
-                                            );
-                                          case RequestState.loaded:
-                                            return MenuButton<String>(
-                                              items: state.categoriesName,
-                                              decoration: const BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(AppSize.s10),
+                                    child: StatefulBuilder(builder:
+                                        (BuildContext context,
+                                            StateSetter setState) {
+                                      return BlocBuilder<CategoriesBloc,
+                                          CategoriesState>(
+                                        builder: (context, state) {
+                                          CacheHelper.setData(key: AppConstants.defaultCategory, value: state.categoriesName.first);
+                                          switch (state.categoryRequestState) {
+                                            case RequestState.loading:
+                                              return const Center(
+                                                child: CircularProgressIndicator(color: AppColors.primary),
+                                              );
+                                            case RequestState.loaded:
+                                              return MenuButton<String>(
+                                                items: state.categoriesName,
+                                                decoration: const BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(
+                                                        AppSize.s10),
+                                                  ),
                                                 ),
-                                              ),
-                                              topDivider: true,
-                                              itemBuilder: (String value) =>
-                                                  Container(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            AppPadding.p10),
-                                                child: Text(value),
-                                              ),
-                                              toggledChild:
-                                                  const ProductCategoryButton(),
-                                              onItemSelected: (String value) {
-                                                context
-                                                    .read<CategoriesBloc>()
-                                                    .add(SelectCategoryEvent(
-                                                        value));
-                                              },
-                                              child:
-                                                  const ProductCategoryButton(),
-                                            );
-                                          case RequestState.error:
-                                            return const SizedBox();
-                                        }
-                                      },
-                                    ),
+                                                topDivider: true,
+                                                itemBuilder: (String value) =>
+                                                    Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal:
+                                                          AppPadding.p10),
+                                                  child: Text(value),
+                                                ),
+                                                toggledChild:
+                                                    const ProductCategoryButton(),
+                                                onItemSelected: (String value) {
+                                                  setState(() {
+                                                    selectedCategory =value;
+                                                  });
+                                                  debugPrint(selectedCategory);
+                                                  context
+                                                      .read<CategoriesBloc>()
+                                                      .add(SelectCategoryEvent(
+                                                          value));
+                                                },
+                                                child:
+                                                    const ProductCategoryButton(),
+                                              );
+                                            case RequestState.error:
+                                              return const SizedBox();
+                                          }
+                                        },
+                                      );
+                                    }),
                                   ),
                                 ],
                               ),
@@ -262,15 +272,11 @@ class AddNewMedicineContent extends StatelessWidget {
                                   AddMedicineEvent(
                                     context: context,
                                     productName: _productNameController.text,
-                                    productDescription:
-                                        _productDetailsController.text,
-                                    productPrice: double.parse(
-                                        _productPriceController.text),
-                                    discountPercent: double.parse(
-                                        _discountPercentController.text),
+                                    productDescription: _productDetailsController.text,
+                                    productPrice: double.parse(_productPriceController.text),
+                                    discountPercent: double.parse(_discountPercentController.text),
                                     categoryName: selectedCategory,
-                                    quantity:
-                                        int.parse(_quantityController.text),
+                                    quantity: int.parse(_quantityController.text),
                                     dose: _doseController.text,
                                     createdAt: DateTime.now().toString(),
                                   ),

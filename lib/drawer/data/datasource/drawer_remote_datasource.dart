@@ -26,9 +26,11 @@ abstract class BaseDrawerRemoteDataSource {
   Future<ContactUsModel> getContactUs();
 
   // About us screen
-  Future<AboutUsFirstModel> getAboutUsFirst(GetAboutUsFirstParameters parameters);
+  Future<AboutUsFirstModel> getAboutUsFirst(
+      GetAboutUsFirstParameters parameters);
 
-  Future<AboutUsSecondModel> getAboutUsSecond(GetAboutUsSecondParameters parameters);
+  Future<AboutUsSecondModel> getAboutUsSecond(
+      GetAboutUsSecondParameters parameters);
 
   // Add medicines screen
   Future<MedicineModel> addMedicine(AddMedicineParameters parameters);
@@ -38,12 +40,12 @@ abstract class BaseDrawerRemoteDataSource {
 
   Future<List<MedicineModel>> getMedicines(GetMedicinesParameters parameters);
 
-  Future<MedicineModel>
-  updateMedicine(UpdateMedicineParameters parameters);
+  Future<MedicineModel> updateMedicine(UpdateMedicineParameters parameters);
 
   Future<void> deleteMedicine(DeleteMedicineParameters parameters);
 
-  Future<PharmacyUserModel> getPharmacyUserProfile(GetPharmacyUserParameters parameters);
+  Future<PharmacyUserModel> getPharmacyUserProfile(
+      GetPharmacyUserParameters parameters);
 
   Future<List<CategoryModel>> getCategories();
 
@@ -54,6 +56,7 @@ abstract class BaseDrawerRemoteDataSource {
 // Concrete or Implementation class.
 class DrawerRemoteDataSource extends BaseDrawerRemoteDataSource {
   static const Map<String, String> headers = {
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
   };
 
@@ -100,8 +103,7 @@ class DrawerRemoteDataSource extends BaseDrawerRemoteDataSource {
   @override
   Future<AboutUsSecondModel> getAboutUsSecond(
       GetAboutUsSecondParameters parameters) async {
-    final response =
-        await Dio().get(ApiConstants.aboutUsTypePath(parameters.vision));
+    final response = await Dio().get(ApiConstants.aboutUsTypePath(parameters.vision));
     // success state.
     if (response.statusCode == 200) {
       return AboutUsSecondModel.fromJson(response.data);
@@ -116,18 +118,39 @@ class DrawerRemoteDataSource extends BaseDrawerRemoteDataSource {
   // Add medicines screen
   @override
   Future<MedicineModel> addMedicine(AddMedicineParameters parameters) async {
+    Map<String, dynamic> body;
+    body = {
+      "UserId": parameters.userId,
+      "PharmacyId": parameters.pharmacyId,
+      "ProductId": parameters.productId,
+      "ProductName": parameters.productName,
+      "Description": parameters.productDescription,
+      "Price": parameters.productPrice,
+      "DiscountPercent": parameters.discountPercent,
+      "Image": await MultipartFile.fromFile(
+        parameters.productImage!.path,
+        filename: parameters.productImage!.path.split('/').last,
+      ),
+      "Point": parameters.point,
+      // "CategoryId": 1, // Todo: Check this in backend.
+      "CategoryName": parameters.categoryName,
+      "Quantity": parameters.quantity,
+      "Dose": parameters.dose,
+      "CreatedAt ": parameters.createdAt,
+    };
     final response = await Dio().post(
       ApiConstants.products,
       // sending "FormData" to api because the body contains file/attachment.
-      data: FormData.fromMap(parameters.toJson()),
+      data: FormData.fromMap(body),
       options: options,
     );
     if (response.statusCode == 200) {
       return MedicineModel.fromJson(response.data);
     } else {
-      debugPrint(response.data);
+      debugPrint(response.statusMessage);
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+        errorMessageModel:
+            ErrorMessageModel(statusMessage: response.statusMessage!),
       );
     }
   }
@@ -135,7 +158,10 @@ class DrawerRemoteDataSource extends BaseDrawerRemoteDataSource {
   // Pharmacy user profile screen
   @override
   Future<MedicineModel> getMedicine(GetMedicineParameters parameters) async {
-    final response = await Dio().get(ApiConstants.productIdPath(parameters.id));
+    final response = await Dio().get(
+      ApiConstants.productIdPath(parameters.id),
+      options: options,
+    );
     if (response.statusCode == 200) {
       return MedicineModel.fromJson(response.data);
     } else {
@@ -168,17 +194,59 @@ class DrawerRemoteDataSource extends BaseDrawerRemoteDataSource {
   @override
   Future<MedicineModel> updateMedicine(
       UpdateMedicineParameters parameters) async {
+    Map<String, dynamic> body;
+    if(parameters.productImage != null){
+      body = {
+        "UserId": parameters.userId,
+        "PharmacyId": parameters.pharmacyId,
+        "ProductId": parameters.productId,
+        "ProductName": parameters.productName,
+        "Description": parameters.productDescription,
+        "Price": parameters.productPrice,
+        "DiscountPercent": parameters.discountPercent,
+        "Image": await MultipartFile.fromFile(
+          parameters.productImage!.path,
+          filename: parameters.productImage!.path.split('/').last,
+        ),
+        "Point": parameters.point,
+        // "CategoryId": 1, // Todo: Check this in backend "Optional".
+        "CategoryName": parameters.categoryName,
+        "Quantity": parameters.quantity,
+        "Dose": parameters.dose,
+        "CreatedAt ": parameters.createdAt,
+      };
+    }else{
+      body = {
+        "UserId": parameters.userId,
+        "PharmacyId": parameters.pharmacyId,
+        "ProductId": parameters.productId,
+        "ProductName": parameters.productName,
+        "Description": parameters.productDescription,
+        "Price": parameters.productPrice,
+        "DiscountPercent": parameters.discountPercent,
+        "ImageUrl": parameters.imageUrl,
+        "Point": parameters.point,
+        // "CategoryId": 1, // Todo: Check this in backend "Optional".
+        "CategoryName": parameters.categoryName,
+        "Quantity": parameters.quantity,
+        "Dose": parameters.dose,
+        "CreatedAt ": parameters.createdAt,
+      };
+    }
+
     final response = await Dio().put(
       ApiConstants.productIdPath(parameters.productId),
       // sending "FormData" to api because the body contains file/attachment.
-      data: FormData.fromMap(parameters.toJson()),
+      data: FormData.fromMap(body),
       options: options,
     );
     if (response.statusCode == 200) {
       return MedicineModel.fromJson(response.data);
     } else {
+      debugPrint(response.statusMessage);
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+        errorMessageModel:
+        ErrorMessageModel(statusMessage: response.statusMessage!),
       );
     }
   }

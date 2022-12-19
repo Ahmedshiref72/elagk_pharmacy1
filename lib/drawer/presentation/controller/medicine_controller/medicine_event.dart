@@ -43,8 +43,7 @@ class AddMedicineEvent extends MedicineEvent {
   });
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         context,
         userId,
         productId,
@@ -90,6 +89,7 @@ class UpdateMedicineEvent extends MedicineEvent {
   final double? productPrice;
   final double? discountPercent;
   final File? productImage;
+  final String? imageUrl;
   final int? quantity;
   final int? point;
   final String? dose;
@@ -106,6 +106,7 @@ class UpdateMedicineEvent extends MedicineEvent {
     this.productPrice,
     this.discountPercent,
     this.productImage,
+    this.imageUrl,
     this.quantity,
     this.point,
     this.dose,
@@ -115,8 +116,7 @@ class UpdateMedicineEvent extends MedicineEvent {
   });
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         context,
         userId,
         productId,
@@ -125,6 +125,7 @@ class UpdateMedicineEvent extends MedicineEvent {
         productPrice,
         discountPercent,
         productImage,
+        imageUrl,
         quantity,
         point,
         dose,
@@ -154,8 +155,7 @@ class InitTextControllersEvent extends MedicineEvent {
   });
 
   @override
-  List<Object> get props =>
-      [
+  List<Object> get props => [
         productName,
         productDetails,
         productPrice,

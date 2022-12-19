@@ -14,6 +14,7 @@ class UpdateMedicineArguments {
   final int productId;
   final String productName;
   final String description;
+  final String imageUrl;
   final double price;
   final double discountPercent;
   final int categoryId;
@@ -25,6 +26,7 @@ class UpdateMedicineArguments {
     required this.productId,
     required this.productName,
     required this.description,
+    required this.imageUrl,
     required this.price,
     required this.discountPercent,
     required this.categoryId,

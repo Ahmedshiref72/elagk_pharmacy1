@@ -1,3 +1,4 @@
+import 'package:elagk_pharmacy/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 showWarningDialog({
@@ -8,17 +9,20 @@ showWarningDialog({
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: Text('هل أنت متأكد من حذف المنتج؟'),
+        content: Text(
+          AppStrings.confirmDeleteProduct,
+          style: Theme.of(context).textTheme.displayLarge,
+        ),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('إلغاء'),
+            child: const Text(AppStrings.cancel),
           ),
           TextButton(
             onPressed: onDeletePressed,
-            child: Text('حذف'),
+            child: const Text(AppStrings.delete),
           ),
         ],
       );
