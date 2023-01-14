@@ -26,7 +26,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
 //     .getData(key: AppConstants.pharmacyId));
     try {
       Response response = await Dio().get(ApiConstants.getpharmacyOrdersById(
-        CacheHelper.getData(key:AppConstants.pharmacyId)
+          CacheHelper.getData(key:AppConstants.pharmacyId)
 
       ) );
       Orders = (response.data as List)
@@ -35,7 +35,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       Orders=Orders.reversed.toList();
       print(CacheHelper.getData(key: AppConstants.userId));
       print(Orders.length);
-     // print(carts.length);
+      // print(carts.length);
       emit(GetOrdersSuccessState(Orders));
       getPrescriptions();
     } catch (error, stacktrace) {
@@ -45,7 +45,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     }
   }
 
-List<PrescriptionModel> prescriptions=[];
+  List<PrescriptionModel> prescriptions=[];
   Future<void> getPrescriptions() async {
     prescriptions = [];
 
@@ -66,30 +66,33 @@ List<PrescriptionModel> prescriptions=[];
       prescriptions.forEach((element) {
 
         Orders.add(
-          OrdersModel(
-            orderId:element.pharmacyId,
-            distance:0,
-            destinationLatitude:0,
-            destinationLongitude:0,
-            address:'tanta',
-            createdAt:element.createdAt,
-            updatedAt:element.updatedAt,
-            totalPrice:0,
-            userId:element.userId,
-            pharmacyId:element.pharmacyId,
-            cartViews:[
-              CartViews(
-                productId:element.prescriptionId,
-                productName:'Prescription',
-                categoryName:'Prescription',
-                imageUrl:element.prescriptionImage,
-                quantity:1,
-                price:0)
-            ]
+            OrdersModel(
+                orderId:element.prescriptionId,
+                distance:0,
+                destinationLatitude:0,
+                destinationLongitude:0,
+                address:'tanta',
+                createdAt:element.createdAt,
+                updatedAt:element.updatedAt,
+                totalPrice:0,
+                userId:element.userId,
+                pharmacyId:element.pharmacyId,
+                cartViews:[
+                  CartViews(
+                      productId:element.prescriptionId,
+                      productName:'Prescription',
+                      categoryName:'Prescription',
+                      imageUrl:element.prescriptionImage,
+                      quantity:1,
+                      price:0
+                  )
+                ]
 
-          )
+            )
 
         );
+
+        print(element.prescriptionId);
       });
       print('ordersLength${Orders.length}');
 
