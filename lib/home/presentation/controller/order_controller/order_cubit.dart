@@ -55,6 +55,23 @@ class OrderCubit extends Cubit<OrderState> {
     });
   }
 
+
+  Future<void> postDeclineOrder({
+    required orderId}) async {
+    emit(PostDeclineOrderLoadingState());
+    Dio().patch(
+      ApiConstants.postDeclineOrder(orderId),
+
+    ).then((value) {
+      emit(PostDeclineOrderSuccessState());
+
+    }).catchError((onError) {
+      emit(PostDeclineOrderErrorState(onError.toString()));
+      print(onError.toString());
+    });
+  }
+
+
   Future<void> postNotification(
       {
         required String UserID,

@@ -13,6 +13,16 @@ class PostOrderErrorState  extends OrderState
   PostOrderErrorState(this.error);
 }
 
+
+class PostDeclineOrderLoadingState  extends OrderState {}
+class PostDeclineOrderSuccessState  extends OrderState {}
+class PostDeclineOrderErrorState  extends OrderState
+{
+  final String error;
+
+  PostDeclineOrderErrorState(this.error);
+}
+
 //follow
 class FollowOrderLoadingState  extends OrderState {}
 class FollowOrderSuccessState  extends OrderState {}
@@ -22,6 +32,7 @@ class FollowOrderErrorState  extends OrderState
 
   FollowOrderErrorState(this.error);
 }
+
 
 
 

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../components/notificationAppBar.dart';
 import '../components/notification_item_widget.dart';
-import '../presentation/components/no_notifications_available_widget.dart';
 
 class NotificationScreen extends StatelessWidget {
    NotificationScreen({Key? key,}) : super(key: key);
@@ -71,8 +70,8 @@ class NotificationScreen extends StatelessWidget {
                   ),
                 ):
                 (NotificationCubit.get(context).notifications.isEmpty&& state is GetNotificationSuccessState)?
-                const Center(child: NoNotificationsAvailable()):
-                const Center(
+                Center(child: NoDataWidget(AppStrings.noNotificationsYet)):
+                Center(
                   child: CircularProgressIndicator(
                     color: AppColors.primary,
                   ),

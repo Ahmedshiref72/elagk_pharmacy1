@@ -72,7 +72,7 @@ void getNotify()
 
 void checkNotifications()
 {
-  timer = Timer.periodic(Duration(seconds: 35), (Timer t)=>getNotifications());
+  timer = Timer.periodic(Duration(seconds: 20), (Timer t)=>getNotifications());
 
 }
 

@@ -52,16 +52,17 @@ import 'package:intl/intl.dart';
                     children: [
 
 
-                      Text( 'الطلب رقم '+ ordersModel.orderId.toString(), style: TextStyle
+                      Text( 'الطلب رقم '+ ordersModel.orderId.toString(),
+                          style: TextStyle
                         (
                           fontSize: 18,
                           fontWeight: FontWeight.bold
 
                       )),
-                      SizedBox(width: mediaQueryWidth(context) * 0.20,),
+                      SizedBox(width: mediaQueryWidth(context) * 0.16,),
                       Text(
 
-                          '${DateFormat("hh:mm").format(DateTime.parse(
+                          '${DateFormat("hh:mm a").format(DateTime.parse(
                               ordersModel.createdAt.toString()))}',
                           style:
                       TextStyle(
@@ -75,7 +76,7 @@ import 'package:intl/intl.dart';
                   ),
                   Row(
                     children: [
-                      Icon(Icons.location_on_outlined,color: Colors.green,size: 15,),
+                      const Icon(Icons.location_on_outlined,color: Colors.green,size: 15,),
                       Container(
                         width: mediaQueryWidth(context)*.6,
                         child: Text(
@@ -83,7 +84,7 @@ import 'package:intl/intl.dart';
                         ordersModel.address.toString(),
                             overflow: TextOverflow.ellipsis,
                             style:
-                        TextStyle(
+                        const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Colors.black

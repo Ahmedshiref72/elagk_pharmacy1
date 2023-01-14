@@ -54,10 +54,13 @@ class ApiConstants {
 
   static String postOrder(int orderId)
   => "$baseUrl/Orders/AcceptorderByPharmacy/$orderId";
+  static String postDeclineOrder(int orderId)
+  => "$baseUrl/Orders/RejectOrder/$orderId";
   static  String followOrder(int orderId) => "$baseUrl/OrderStepper/FollowOrder/$orderId";
 
   static String getpharmacyOrdersById(int Id) => "$baseUrl/Pharmacies/PharmacyOrders/$Id";
   static String getpharmacyPrescriptionsById(int Id) => "$baseUrl/Prescriptions/$Id";
+
 
   static String getDeliveries(int Id) => "$baseUrl/Pharmacies/GetPharmacyDeliveries/$Id";
 

@@ -59,7 +59,8 @@ class OrderInformationContent extends StatelessWidget {
                 InformationContentSection2(
                   ontap: () async {
                     String googleUrl =
-                        'https://www.google.com/maps/search/?api=1&query=${Order!.destinationLatitude},${Order!.destinationLongitude}';
+                        'https://www.google.com/maps/search/?api=1&query='
+                        '${Order!.destinationLatitude},${Order!.destinationLongitude}';
                     await launch(googleUrl);
                   },
                   text: AppStrings.deliverTo,
@@ -166,12 +167,21 @@ class OrderInformationContent extends StatelessWidget {
                       SizedBox(
                           width: mediaQueryWidth(context) / AppSize.s5),
                       ScoundButton(
-                        onPressed: () {
+                        onPressed: ()  {
                           OrderCubit.get(context).folowOrders(
                               orderId: Order!.orderId!.toInt());
-                          navigateFinalTo(
-                              context: context,
-                              screenRoute: Routes.homeDrawerScreen);
+                          OrderCubit.get(context).postDeclineOrder(
+                              orderId: Order!.orderId!.toInt());
+                          //post notify to client
+                          OrderCubit.get(context).postNotification(
+                              UserID:
+                          Order!.userId!, notifiactionTitle: "order Progress",
+                              notifiactionDescription:
+                              "your order Declined from pharmacy");
+
+                          navigateFinalTo(context: context, screenRoute: Routes.homeDrawerScreen);
+                          //post notify to delevery
+                          // OrderCubit.get(context).postNotification(UserID:);
                         },
                         mainColor: Colors.red,
                         scoundColor: Colors.red.shade50,
@@ -179,7 +189,9 @@ class OrderInformationContent extends StatelessWidget {
                       ),
                     ],
                   )
-                      : SizedBox(),
+                      :(state is FollowOrderLoadingState)?
+                  const Center(child: CircularProgressIndicator(color: AppColors.primary,),):
+                  const SizedBox(),
                 )
 
               ],
