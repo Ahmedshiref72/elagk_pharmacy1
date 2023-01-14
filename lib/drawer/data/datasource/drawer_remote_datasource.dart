@@ -148,10 +148,7 @@ class DrawerRemoteDataSource extends BaseDrawerRemoteDataSource {
       return MedicineModel.fromJson(response.data);
     } else {
       debugPrint(response.statusMessage);
-      throw ServerException(
-        errorMessageModel:
-            ErrorMessageModel(statusMessage: response.statusMessage!),
-      );
+      throw ServerException(errorMessageModel: ErrorMessageModel(statusMessage: response.statusMessage!));
     }
   }
 

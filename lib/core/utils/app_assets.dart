@@ -58,6 +58,7 @@ class JsonAssets {
   static const String noNotifications = '$JSON_PATH/no-notification.json';
   // Home screen
   static const String ordersDone = '$JSON_PATH/orders-done.json';
+  static const String orderAccepted = '$JSON_PATH/orderAccepted.json';
 }
 
 class VideoAssets {

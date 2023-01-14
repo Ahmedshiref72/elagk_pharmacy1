@@ -1,6 +1,5 @@
 import 'package:elagk_pharmacy/auth/presentation/components/screen_background.dart';
 import 'package:elagk_pharmacy/core/global/app_colors.dart';
-import 'package:elagk_pharmacy/core/services/services_locator.dart';
 import 'package:elagk_pharmacy/core/utils/app_constants.dart';
 import 'package:elagk_pharmacy/core/utils/app_strings.dart';
 import 'package:elagk_pharmacy/core/utils/app_values.dart';
@@ -68,8 +67,7 @@ class PharmacyUserProfileContent extends StatelessWidget {
                       builder: (context, state) {
                         switch (state.categoryRequestState) {
                           case RequestState.loading:
-                            return const Center(
-                                child: Text(AppStrings.noProducts));
+                            return const Center(child: Text(AppStrings.noProducts));
                           case RequestState.loaded:
                             return CategoriesAndProductsSection(
                               firstCategoryName: state.category!.first.categoryName,

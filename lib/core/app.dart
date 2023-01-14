@@ -9,6 +9,9 @@ import 'package:elagk_pharmacy/drawer/presentation/controller/about_us_controlle
 import 'package:elagk_pharmacy/drawer/presentation/controller/categories_controller/categories_bloc.dart';
 import 'package:elagk_pharmacy/drawer/presentation/controller/medicine_controller/medicine_bloc.dart';
 import 'package:elagk_pharmacy/drawer/presentation/controller/pharmacy_user_profile_controller/pharmacy_profile_bloc.dart';
+import 'package:elagk_pharmacy/home/presentation/controller/home_screen_controller/home_screen_cubit.dart';
+import 'package:elagk_pharmacy/home/presentation/controller/order_controller/order_cubit.dart';
+import 'package:elagk_pharmacy/notification/controller/notification_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,10 +20,14 @@ class MyApp extends StatelessWidget {
 
   static const MyApp instance = MyApp._internal();
 
-  factory MyApp() => instance;
+  factory MyApp(
+
+
+      ) => instance;
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => sl<LoginPharmacyBloc>()),
@@ -29,6 +36,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => sl<MedicineBloc>()),
         BlocProvider(create: (BuildContext context) => sl<PharmacyProfileBloc>()..add(const GetPharmacyUserProfileEvent())),
         BlocProvider(create: (BuildContext context) => sl<CategoriesBloc>()..add(const GetCategoriesEvent())),
+        BlocProvider(create: (BuildContext context) => HomeScreenCubit()..getOrders()),
+        BlocProvider(create: (BuildContext context) => OrderCubit()..getDeliveries()),
+        BlocProvider(create: (BuildContext context) =>NotificationCubit()..getNotifications()..checkNotifications()),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

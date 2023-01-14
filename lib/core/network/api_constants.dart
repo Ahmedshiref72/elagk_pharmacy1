@@ -1,6 +1,6 @@
 class ApiConstants {
   // Api.
-  static const String baseUrl = "http://freelancerr-001-site1.btempurl.com/api";
+  static const String baseUrl = "http://freeserver23-001-site1.atempurl.com/api";
   static const String auth = "Auth";
 
   // End points | Paths.
@@ -46,4 +46,19 @@ class ApiConstants {
 
   // Complaints screen
   static const String complaints = "$baseUrl/Issues";
+
+  //notification
+  static String getNotifications(String userId) => "$baseUrl/Notifications/$userId";
+  static const String postNotification = "$baseUrl/Notifications";
+
+
+  static String postOrder(int orderId)
+  => "$baseUrl/Orders/AcceptorderByPharmacy/$orderId";
+  static  String followOrder(int orderId) => "$baseUrl/OrderStepper/FollowOrder/$orderId";
+
+  static String getpharmacyOrdersById(int Id) => "$baseUrl/Pharmacies/PharmacyOrders/$Id";
+  static String getpharmacyPrescriptionsById(int Id) => "$baseUrl/Prescriptions/$Id";
+
+  static String getDeliveries(int Id) => "$baseUrl/Pharmacies/GetPharmacyDeliveries/$Id";
+
 }

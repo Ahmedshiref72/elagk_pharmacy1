@@ -13,6 +13,11 @@ class AppStrings {
   static const String notifications = "التنبيهات";
   static const String orderArrived = "تم وصول طلب جديد برقم ";
   static const String noNotificationsAvailable = "ليس لديك إشعارات جديدة";
+  static const String noOrders = "لا يوجد طلبات بعد";
+  static const String clientName = "اسم العميل";
+  static const String clientPhone = "رقم العميل";
+  static const String pharmacyName = "اسم الصيدليه";
+  static const String deliverTo= "التوصيل الى";
 
   // Login pharmacy screen
   static const String login = "تسجيل الدخول";
@@ -61,6 +66,7 @@ class AppStrings {
   static const String complaints = "الشكاوى";
   static const String contactUs = "التواصل معنا";
   static const String aboutUs = "عن التطبيق";
+  static const String noNotificationsYet = "لا يوجد تنبيهات";
 
   // About us
   static const String whoAreWe = "من نحن";

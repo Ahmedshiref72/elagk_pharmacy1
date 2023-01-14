@@ -1,3 +1,6 @@
+import 'package:elagk_pharmacy/drawer/data/models/pharmacy_user_model.dart';
+import 'package:elagk_pharmacy/drawer/domain/entities/pharmacy_user_entity.dart';
+
 class AppConstants {
   // General
   static const String empty = "";
@@ -22,5 +25,7 @@ class AppConstants {
   static String whatsappUrlIos(String whatsApp) => "https://wa.me/$whatsApp?text=${Uri.tryParse(whatsappMessage)}"; // Whatsapp ios.
   static String facebookUrl(String facebook) => "https://m.facebook.com/$facebook"; // Facebook.
   static String instagramUrl(String instagram) => "https://www.instagram.com/$instagram/"; // Instagram.
+
+  static int notificationLength = 0;
 
 }

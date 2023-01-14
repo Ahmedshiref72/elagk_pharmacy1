@@ -162,26 +162,7 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
   FutureOr<void> _updateMedicine(
       UpdateMedicineEvent event, Emitter<MedicineState> emit) async {
     emit(state.copyWith(medicineButtonState: ButtonState.loading));
-    // TODO: remove this prints.
-    debugPrint("******productId*********");
-    debugPrint(event.productId.toString());
-    debugPrint("*****productName*********");
-    debugPrint(event.productName);
-    debugPrint("*******productDescription********");
-    debugPrint(event.productDescription);
-    debugPrint("*******productPrice********");
-    debugPrint(event.productPrice.toString());
-    debugPrint("*******discountPercent******");
-    debugPrint(event.discountPercent.toString());
-    debugPrint("*****imageUrl*********");
-    debugPrint(event.imageUrl);
-    debugPrint("*******quantity*********");
-    debugPrint(event.quantity.toString());
-    debugPrint("******categoryId*********");
-    debugPrint(event.categoryId.toString());
-    debugPrint("*******categoryName*********");
-    debugPrint(event.categoryName);
-    debugPrint("***********************");
+
     final result = await updateMedicineUseCase(
       UpdateMedicineParameters(
         userId: CacheHelper.getData(key: AppConstants.userId),

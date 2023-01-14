@@ -24,7 +24,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   getScreen(MyMenuItem currentItem) {
     switch (currentItem) {
       case MenuItems.homepage:
-        return const AllOrders();
+        return HomeScreen();
       case MenuItems.profile:
         return const PharmacyUserProfileScreen();
       case MenuItems.contactUs:
