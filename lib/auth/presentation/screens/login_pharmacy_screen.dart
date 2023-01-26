@@ -19,7 +19,7 @@ import '../../../core/utils/navigation.dart';
 
 class LoginPharmacyScreen extends StatelessWidget {
   const LoginPharmacyScreen({Key? key}) : super(key: key);
-  static final _formKey = GlobalKey<FormState>();
+  static final formKey = GlobalKey<FormState>();
   static final _emailController = TextEditingController();
   static final _passwordController = TextEditingController();
 
@@ -35,7 +35,7 @@ class LoginPharmacyScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(AppPadding.p15),
                 child: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +108,7 @@ class LoginPharmacyScreen extends StatelessWidget {
                               return MainButton(
                                 title: AppStrings.login,
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
+                                  if (formKey.currentState!.validate()) {
                                     try {
                                       context.read<LoginPharmacyBloc>().add(
                                             LoginEvent(

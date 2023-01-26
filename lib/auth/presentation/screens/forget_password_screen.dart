@@ -18,7 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({Key? key}) : super(key: key);
 
-  static final _formKey = GlobalKey<FormState>();
+  static final formKey = GlobalKey<FormState>();
   static final _emailController = TextEditingController();
 
   @override
@@ -33,7 +33,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(AppPadding.p15),
                 child: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,7 +67,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             return MainButton(
                               title: AppStrings.send,
                               onPressed: () {
-                                if (_formKey.currentState!.validate()) {
+                                if (formKey.currentState!.validate()) {
                                   try {
                                     context.read<PasswordBloc>().add(
                                       ForgetPasswordEvent(
