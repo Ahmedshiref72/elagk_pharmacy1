@@ -1,8 +1,8 @@
 class ApiConstants {
   // Api.
-  static const String baseUrl = "http://freeserver23-001-site1.atempurl.com/api";
+  static const String baseUrl =
+      "http://freeserver23-001-site1.atempurl.com/api";
   static const String auth = "Auth";
-
   // End points | Paths.
   // Login pharmacy screen
   static const String login = "$baseUrl/$auth/Login";
@@ -10,8 +10,7 @@ class ApiConstants {
   // Forget password screen
   static const String forgetPassword = "$baseUrl/$auth/Forgetpassword";
 
-  static String forgetPasswordEmailPath(String email) =>
-      "$forgetPassword/$email";
+  static String forgetPasswordEmailPath(String email) => "$forgetPassword/$email";
 
   static const String sendMail = "$baseUrl/$auth/SendMail";
 
@@ -37,7 +36,8 @@ class ApiConstants {
   static const String productsByCategoryAndID =
       "$products/GetPharmacyProductByCategory";
 
-  static String productsByCategoryAndIDPath(int pharmacyId, String categoryName) => "$productsByCategoryAndID/$pharmacyId/$categoryName";
+  static String productsByCategoryAndIDPath(int pharmacyId,
+      String categoryName) => "$productsByCategoryAndID/$pharmacyId/$categoryName";
   static const String pharmacies = "$baseUrl/Pharmacies";
   static const String userPharmacy = "$pharmacies/UserPharmacy";
 
